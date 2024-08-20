@@ -6,14 +6,14 @@
 #include <memory>
 #include <string>
 
-// Базовый класс для выполнения задач
+// Base Executor class
 class Executor {
 public:
-    virtual std::vector<int> run(const std::vector<int>& data, std::function<int(int)> fn) = 0;
+    virtual std::vector<float> run(const std::vector<float>& data, std::function<float(float)> fn) = 0;
     virtual ~Executor() = default;
 };
 
-// Фабрика для создания экземпляров исполнителей
+// Executor factory class
 class RunFactory {
 public:
     static std::unique_ptr<Executor> create(const std::string& method);

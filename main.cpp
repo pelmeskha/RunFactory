@@ -2,20 +2,19 @@
 #include "Executor.h"
 
 int main() {
-    std::vector<int> data = {1, 2, 3};
-    auto calc = [](int x) { return x * x; };
+    std::vector<float> data = {1.0, 2.0, 3.0};
+    auto function = [](float x) { return x * x; };
 
     try {
-        // Использование многопоточного выполнения
         auto executor = RunFactory::create("multi");
-        auto result = executor->run(data, calc);
+        auto result = executor->run(data, function);
 
-        for (auto& val : result) {
-            std::cout << val << " ";
+        for (auto& value : result) {
+            std::cout << value << " ";
         }
         std::cout << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+    } catch (const std::exception& error) {
+        std::cerr << "Error: " << error.what() << std::endl;
     }
 
     return 0;
