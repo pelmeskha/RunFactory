@@ -1,6 +1,7 @@
 #include "Executor.h"
 #include <future>
 #include <stdexcept>
+#include <iostream>
 
 // One-thread
 class SingleThreadExecutor : public Executor {
@@ -31,6 +32,19 @@ public:
     }
 };
 
+// OMP
+class OMPExecutor : public Executor {
+public:
+    std::vector<float> run(const std::vector<float>& data, std::function<float(float)> fn) override {
+        std::vector<float> results(data.size());
+        #pragma omp parallel for
+        for (size_t i = 0; i < data.size(); ++i) {
+            results[i] = fn(data[i]);
+        }
+        return results;
+    }
+};
+
 // Add your methods here
 // ...
 
@@ -40,6 +54,8 @@ std::unique_ptr<Executor> RunFactory::create(const std::string& method) {
         return std::make_unique<SingleThreadExecutor>();
     } else if (method == "multi") {
         return std::make_unique<MultiThreadExecutor>();
+    } else if (method == "OMP") {
+        return std::make_unique<OMPExecutor>();
     } else {
         // Add your methods here
         throw std::invalid_argument("Unknown method: " + method);

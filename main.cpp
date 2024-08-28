@@ -6,7 +6,7 @@ int main() {
     auto function = [](float x) { return x * x; };
 
     try {
-        auto executor = RunFactory::create("multi");
+        auto executor = RunFactory::create("OMP");
         auto result = executor->run(data, function);
 
         for (auto& value : result) {
