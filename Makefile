@@ -2,7 +2,7 @@
 CC = g++
 
 # Compiler flags
-CFLAGS = -Wall -Werror -O2 -std=c++14
+CFLAGS = -Wall -Werror -O2 -std=c++14 -fopenmp
 
 # Target name
 TARGET = main
